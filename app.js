@@ -10,15 +10,17 @@ mongoose.connect('mongodb://localhost/shopping');
 var index = require('./routes/index');
 var products = require('./routes/products');
 var users = require('./routes/users');
-var contact = require('./routes/contact')
+var contact = require('./routes/contact');
+var admin = require('./routes/admin');
+var productadmin = require('./routes/product-admin');
 
 var app = express();
 
 // view engine setup
 var handlebars = require('express-handlebars').create({
-  layoutsDir: path.join(__dirname, "views/layouts"),
-  defaultLayout: 'mainlayout',
-  extname: 'hbs'
+    layoutsDir: path.join(__dirname, "views/layouts"),
+    //defaultLayout: 'mainlayout',
+    extname: 'hbs'
 });
 
 app.engine('hbs', handlebars.engine);
@@ -37,28 +39,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/products', products);
 app.use('/users', users);
-app.use('/contact',contact);
+app.use('/contact', contact);
+app.use('/admin', admin);
+app.use('/productadmin', productadmin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  // catch 404 error:
-  if(err.status == 404){
-    res.render('404');
-  } else {
-      // render the error page
-      res.status(err.status || 500);
-      res.render('error');
-  }
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // catch 404 error:
+    if (err.status == 404) {
+        res.render('404');
+    } else {
+        // render the error page
+        res.status(err.status || 500);
+        res.render('error');
+    }
 
 });
 
