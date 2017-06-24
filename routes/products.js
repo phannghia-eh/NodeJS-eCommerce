@@ -3,18 +3,25 @@ var router = express.Router();
 
 var productController = require('../controllers/productController');
 
-router.get('/', function(req, res, next) {
-  var products = [];
-  products = productController.product_list(req, res);
-  res.render('shop', { title: 'Products', products:products });
-});
+router.get('/', productController.product_list);
 
-router.get('/product-details/:id',function (req, res, next) {
-    var product = productController.product_details(req, res);
-    res.render('product-details',{title: 'Products', product:product});
-});
+router.get('/product-details/:id',productController.product_details);
 
+router.get('/product-list',productController.product_list);
 
+// ADMIN
 
-router.get('/')
+//Add new
+router.get('/product-add',productController.product_AddNew_Get);
+
+router.post('/product-add',productController.product_AddNew_Post);
+
+//Edit - Update
+router.get('/product-edit/:id', productController.product_Edit_Get);
+
+router.post('/product-edit/:id', productController.product_Edit_Post);
+
+//Delete
+router.post('/product-delete/:id', productController.product_Delete);
+
 module.exports = router;

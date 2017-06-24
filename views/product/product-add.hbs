@@ -1,0 +1,24 @@
+<section id="form"><!--form-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form"><!--login form-->
+                    <h2>Fill the new product information</h2>
+                    <form action="product-add" method="post">
+                        <input type="text" placeholder="Tittle" name="title"/>
+                        <input type="text" placeholder="Brand" name="brand"/>
+                        <input type="number" placeholder="Price" name="price"/>
+                        <input type="text" placeholder="Description" name="description"/>
+                        <input type="text" placeholder="Tag" name="tag"/>
+                        <div class="dropzone" data-width="960" data-originalsize="false" data-height="540" data-url="canvas.php" style="width: 100%;"  data-image="/assets/images/preview.jpg"  data-editstart="true" data-dimensionsonly="true">
+                            <input type="file" name="imagePath" />
+                        </div>
+                        <button type="submit" class="btn btn-default">Add new</button>
+                    </form>
+                </div><!--/login form-->
+            </div>
+        </div>
+    </div>
+</section><!--/form-->
+
+<script>$('.dropzone').html5imageupload();</script>
