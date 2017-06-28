@@ -1,54 +1,89 @@
 var Product = require('../models/product');
-var mongoose = require('mongoose');
 
 //Upload Image
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, './public/images');
+        callback(null, __dirname+'/../public/images/product');
     },
     filename: function (req, file, callback) {
         callback(null, file.originalname);
     }
-})
+});
+var upload = multer({storage:storage}).array('imageFile',4);
 
-// get list of all Products
-exports.product_list = function (req, res, next) {
-    var products = [];
+//get list for index page
+exports.product_list_index = function (req, res, next) {
+    var products=[];
     Product.find({}, function (err, result) {
         result.forEach(function (obj) {
             products.push(obj);
         });
-        res.render('product/product-list',{title:'List Products',products:products});
+        res.render('index',{title:'Index',layout: 'mainlayout', products:products});
     });
+};
+
+// get list of all Products
+exports.product_list = function (req, res, next) {
+    var category = req.query.category;
+    var products = [];
+    if(category!==null){
+        Product.find({'brand':category},function (err, result) {
+            result.forEach(function (obj) {
+                products.push(obj);
+            });
+            res.render('product/product-list',{title:'List Products',layout: 'mainlayout', products:products});
+        })
+    }else{
+        Product.find({}, function (err, result) {
+            result.forEach(function (obj) {
+                products.push(obj);
+            });
+            res.render('product/product-list',{title:'List Products',layout: 'mainlayout', products:products});
+        });
+    }
 };
 
 // Get product details
 exports.product_details = function (req, res) {
-    var product;
-    Product.findById(req.param.id, function (err, result) {
-        res.render('product-details',{title: 'Products', product:product});
+    var product;console.log("----------------------");
+    console.log(req.params.id);
+    Product.findById(req.params.id, function (err, result) {
+        console.log("----------------------");
+        console.log(result);
+        res.render('product/product-details',{title: 'Products details',layout:'mainlayout', product:result});
     })
 };
 
 //Get 'Add new' Page
 exports.product_AddNew_Get = function (req, res) {
-    res.render('product/product-add',{tittle: 'Add new', message: ''});
+    res.render('product/product-add',{tittle: 'Add new', layout: 'mainlayout', message: ''});
 };
 
 // Post 'Add new' Page
 exports.product_AddNew_Post = function (req, res) {
-    var newProduct = new Product({
-        "imagePath":req.body.imagePath,
-        "title": req.body.title,
-        "price": req.body.price,
-        "brand": req.body.brand,
-        "description": req.body.description,
-        "tag": req.body.tag
+    console.log(req.files);
+    upload(req, res, function () {
+        if(typeof req.files !== "undefined"){
+            var listImage = [];
+            req.files.forEach(function (obj) {
+                listImage.push("/images/product/"+obj.originalname);
+            });
+            console.log(listImage);
+            var newProduct = new Product({
+                "imagePath":listImage,
+                "title": req.body.title,
+                "price": req.body.price,
+                "brand": req.body.brand,
+                "description": req.body.description,
+                "tag": req.body.tag
+            });
+            newProduct.save(function (err) {
+                res.render('product/product-add', {tittle: 'Add new', layout: 'mainlayout', message: err});
+            })
+        }
     });
-    newProduct.save(function (err) {
-        res.render('product/product-add',{tittle: 'Add new', message: err});
-    })
+
 };
 
 //Get 'Edit' page
@@ -56,7 +91,7 @@ exports.product_Edit_Get = function (req, res) {
     var product;
     Product.findById(req.param.id, function (err, found) {
         product = found;
-        res.render('product/product-edit', {tittle: 'Edit', product: product, message: err});
+        res.render('product/product-edit', {tittle: 'Edit', layout: 'mainlayout', product: product, message: err});
     });
 }
 exports.product_Edit_Post = function (req, res) {

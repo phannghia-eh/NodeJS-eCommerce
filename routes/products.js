@@ -14,7 +14,8 @@ router.get('/product-list',productController.product_list);
 //Add new
 router.get('/product-add',productController.product_AddNew_Get);
 
-router.post('/product-add',productController.product_AddNew_Post);
+// router.post('/product-add',productController.product_AddNew_Post);
+router.post('/product-add', productController.product_AddNew_Post);
 
 //Edit - Update
 router.get('/product-edit/:id', productController.product_Edit_Get);
