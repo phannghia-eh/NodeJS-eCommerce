@@ -11,15 +11,11 @@ var index = require('./routes/index');
 var products = require('./routes/products');
 var users = require('./routes/users');
 var contact = require('./routes/contact');
-<<<<<<< HEAD
 var LocalStrategy = require('passport-local').Strategy;
 var config = require('./config/passport');
 var flash = require('connect-flash');
-=======
 var admin = require('./routes/admin');
-var productadmin = require('./routes/product-admin');
 
->>>>>>> 9b7326939fed1a62ce5fd2183cc6c38c2ba0eead
 var app = express();
 var User = require('./models/user');
 
@@ -30,14 +26,9 @@ mongoose.connect('mongodb://localhost:27017/shopping')
 
 // view engine setup
 var handlebars = require('express-handlebars').create({
-<<<<<<< HEAD
-  layoutsDir: path.join(__dirname, "views/layouts"),
-  extname: 'hbs'
-=======
     layoutsDir: path.join(__dirname, "views/layouts"),
     //defaultLayout: 'mainlayout',
     extname: 'hbs'
->>>>>>> 9b7326939fed1a62ce5fd2183cc6c38c2ba0eead
 });
 
 app.engine('hbs', handlebars.engine);
@@ -66,7 +57,6 @@ app.use('/products', products);
 app.use('/users', users);
 app.use('/contact', contact);
 app.use('/admin', admin);
-app.use('/productadmin', productadmin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
