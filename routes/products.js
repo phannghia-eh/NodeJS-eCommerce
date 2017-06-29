@@ -25,4 +25,6 @@ router.post('/product-edit/:id', productController.product_Edit_Post);
 //Delete
 router.post('/product-delete/:id', productController.product_Delete);
 
+//handle review
+router.post('/review', productController.product_review);
 module.exports = router;

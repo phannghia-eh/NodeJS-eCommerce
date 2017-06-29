@@ -114,3 +114,15 @@ exports.product_Delete = function (req, res) {
     })
 };
 
+exports.product_review = function (req, res) {
+    try{
+        Product.findById(req.body.id, function (err, product) {
+
+            product.reviews.push(req.body.data);
+            product.save();
+            res.send({message:"success"});
+        });
+    }catch (err){
+        console.log(err);
+    }
+};

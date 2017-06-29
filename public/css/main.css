@@ -1014,6 +1014,34 @@ h2.title {
   text-transform: uppercase;
 }
 
+.myhidden{
+    visibility: hidden
+}
+ /* The alert message box */
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+} 
+
 .category-tab ul  li  a:hover{
 	background:#FE980F;
 	color:#fff;
@@ -1430,7 +1458,12 @@ h2.title {
   margin-top: 185px;
   overflow: hidden;
 }
-
+#form2{
+  display: block;
+  margin-bottom: 185px;
+  margin-top: 70px;
+  overflow: hidden;
+}
 .login-form {
 
 }
