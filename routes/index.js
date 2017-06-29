@@ -2,9 +2,12 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home Page', user:req.user, layout: 'mainlayout' });
-});
+var productController = require('../controllers/productController');
+
+var indexController = require('../controllers/indexController');
+router.get('/', productController.product_list_index);
+
+router.get('/search',indexController.searchBy);
 
 module.exports = router;
 

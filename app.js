@@ -12,17 +12,24 @@ var index = require('./routes/index');
 var products = require('./routes/products');
 var users = require('./routes/users');
 var contact = require('./routes/contact');
+var cart = require('./routes/cart');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
+
+var admin = require('./routes/admin');
+var productadmin = require('./routes/product-admin');
+
 var app = express();
 var User = require('./models/user');
 var moment = require('moment');
 
 //mongoose connection
-mongoose.connect('mongodb://localhost:27017/shopping')
-  .then(() =>  console.log('connection succesful'))
-  .catch((err) => console.error(err));
-
+mongoose.connect('mongodb://localhost:27017/shopping');
+var dbMongo = mongoose.connection;
+dbMongo.on('err', console.error.bind(console, 'connect fail'));
+dbMongo.once('open',function () {
+    console.log('mongo connected');
+});
 // view engine setup
 var handlebars = require('express-handlebars').create({
     layoutsDir: path.join(__dirname, "views/layouts"),
@@ -43,7 +50,7 @@ app.set('view engine', 'hbs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(cookieParser());
-var session = require('express-session')
+var session = require('express-session');
 app.use(session({secret: 'keyboard cat', saveUninitialized: true, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -59,8 +66,9 @@ app.use('/', index);
 app.use('/products', products);
 app.use('/users', users);
 app.use('/contact', contact);
-//app.use('/admin', admin);
-//app.use('/productadmin', productadmin);
+app.use('/admin', admin);
+app.use('/productadmin', productadmin);
+app.use('/cart', cart);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

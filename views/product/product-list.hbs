@@ -1,0 +1,103 @@
+<section id="advertisement">
+    <div class="container">
+        <img src="./images/shop/advertisement.jpg" alt="" />
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+
+                    <div class="brands_products"><!--brands_products-->
+                        <h2>Brands</h2>
+                        <div class="brands-name">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="/products?category=Nike"> <span class="pull-right"></span>Nike</a></li>
+                                <li><a href="/products?category=Addidas"> <span class="pull-right"></span>Addidas</a></li>
+                                <li><a href="/products?category=Puma"> <span class="pull-right"></span>Puma</a></li>
+                                <li><a href="/products?category=Reebook"> <span class="pull-right">(32)</span>Reebook</a></li>
+                            </ul>
+                        </div>
+                    </div><!--/brands_products-->
+
+                    <div class="price-range"><!--price-range-->
+                        <h2>Price Range</h2>
+                        <div class="well">
+                            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
+                            <b>$ 0</b> <b class="pull-right">$ 600</b>
+                        </div>
+                    </div><!--/price-range-->
+
+                    <div class="shipping text-center"><!--shipping-->
+                        <img src="../images/home/shipping.jpg" alt="" />
+                    </div><!--/shipping-->
+
+                </div>
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Features Items</h2>
+
+                    {{#each products}}
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="{{imagePath.[0]}}"/>
+                                        <h2>${{price}}</h2>
+                                        <p>{{title}}</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    </div>
+                                    <div class="product-overlay">
+                                        <div class="overlay-content">
+                                            <h2>${{price}}</h2>
+                                            <p>{{title}}</p>
+                                            <input type="hidden" id="{{id}}">
+                                            <button class="btn btn-default add-to-cart" id="add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            <a href="/products/product-details/{{_id}}" class="btn btn-default add-to-cart">View details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="choose">-->
+                                <!--<ul class="nav nav-pills nav-justified">-->
+                                <!--<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>-->
+                                <!--<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>-->
+                                <!--</ul>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    {{/each}}
+                </div><!--features_items-->
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        //bắt sự kiện click của button add-to-cart
+        $("#add-to-cart").on('click',function(){
+            //lấy thông tin id của product hiện tại muốn làm
+            var id = $(this).parent().find("input").attr('id');
+            //lấy số lượng
+            //alert(qty);
+            $.ajax({
+                url: '/cart/add/'+id, //url chính là url của route muốn ajax
+                type: 'POST', //type là get or post
+                cache: false,
+                data:{"id":id}, //các biến truyền qua
+                success: function (data){
+                    if(data){ //nếu thành công
+                        swal("Thành công!!!");
+                    }
+                    else{ //không thành công.
+                        alert("Không thể sửa sản phẩm!!!");
+                    }
+                }
+            });
+        })
+    });
+</script>

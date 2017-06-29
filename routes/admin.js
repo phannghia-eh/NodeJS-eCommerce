@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var adminController = require('../controllers/adminController');
 
 function ensureAuthenticated(req, res, next) {
     User.findOne({'username': req.user.username}, function (err, user){

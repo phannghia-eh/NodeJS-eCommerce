@@ -1,0 +1,270 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+
+                    <div class="brands_products"><!--brands_products-->
+                        <h2>Brands</h2>
+                        <div class="brands-name">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="/products?category=Nike"> <span class="pull-right"></span>Nike</a></li>
+                                <li><a href="/products?category=Addidas"> <span class="pull-right"></span>Addidas</a></li>
+                                <li><a href="/products?category=Puma"> <span class="pull-right"></span>Puma</a></li>
+                                <li><a href="/products?category=Reebook"> <span class="pull-right">(32)</span>Reebook</a></li>
+                            </ul>
+                        </div>
+                    </div><!--/brands_products-->
+
+                    <div class="price-range"><!--price-range-->
+                        <h2>Price Range</h2>
+                        <div class="well">
+                             <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
+                             <b>$ 0</b> <b class="pull-right">$ 600</b>
+                        </div>
+                    </div><!--/price-range-->
+
+                    <div class="shipping text-center"><!--shipping-->
+                        <img src="images/home/shipping.jpg" alt="" />
+                    </div><!--/shipping-->
+
+                </div>
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="product-details"><!--product-details-->
+                    <div class="col-sm-5">
+                        <div id="similar-product" class="carousel slide" data-ride="carousel">
+
+                              <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                      <a href=""><img src={{product.imagePath.[0]}} alt=""></a>
+                                    </div>
+                                    {{#if product.imagePath.[1]}}
+                                    <div class="item">
+                                      <a href=""><img src={{product.imagePath.[1]}} alt=""></a>
+                                    </div>
+                                    {{/if}}
+
+                                    {{#if product.imagePath.[2]}}
+                                    <div class="item">
+                                      <a href=""><img src={{product.imagePath.[2]}} alt=""></a>
+                                    </div>
+                                    {{/if}}
+                                    {{#if product.imagePath.[3]}}
+                                        <div class="item">
+                                            <a href=""><img src={{product.imagePath.[3]}} alt=""></a>
+                                        </div>
+                                    {{/if}}
+                                </div>
+
+                              <!-- Controls -->
+                              <a class="left item-control" href="#similar-product" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                              </a>
+                              <a class="right item-control" href="#similar-product" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                              </a>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information"><!--/product-information-->
+                            <img src="/images/product-details/new.jpg" class="newarrival" alt="" />
+                            <h2>{{product.title}}</h2>
+                            <img src={{product.imagePath.[0]}} alt="" height="100px"/>
+                            <span>
+                                <span>US ${{product.price}}</span>
+                                <label>Quantity:</label>
+                                <input type="number" value="3" />
+                                <button type="button" class="btn btn-fefault cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Add to cart
+                                </button>
+                            </span>
+                            <p><b>Availability:</b> In Stock</p>
+                            <p><b>Brand:</b> {{product.brand}}</p>
+                        </div><!--/product-information-->
+                    </div>
+                </div><!--/product-details-->
+
+                <div class="category-tab shop-details-tab"><!--category-tab-->
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li><a href="#details" data-toggle="tab">Details</a></li>
+                            <li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
+                            <li><a href="#tag" data-toggle="tab">Tag</a></li>
+                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="details" >
+                            {{product.description}}
+                        </div>
+
+                        <div class="tab-pane fade active in" id="reviews" >
+                            {{#each product.reviews}}
+                            <div class="col-sm-12">
+                                <ul>
+                                    <li><a href=""><i class="fa fa-user"></i>{{name}}</a></li>
+                                    <li><a href=""><i class="fa fa-clock-o"></i>{{time}}</a></li>
+                                    <li><a href=""><i class="fa fa-calendar-o"></i>{{date}}</a></li>
+                                </ul>
+                                <textarea>{{review}}</textarea>
+
+
+                            </div>
+                            {{/each}}
+                            <form>
+                                <p><b>Write Your Review</b></p>
+                                    <span>
+                                        <input type="text" placeholder="Your Name" id="name"/>
+                                        <input type="email" placeholder="Email Address" id="email"/>
+                                    </span>
+                                <textarea name="review" id="review"></textarea>
+                                <b>Rating: </b> <input type="number" size="1" max="10" id="rate"><b>/10</b>
+                                <button type="button" class="btn btn-default pull-right" id="submit-review">
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div><!--/category-tab-->
+
+                <div class="recommended_items"><!--recommended_items-->
+                    <h2 class="title text-center">recommended items</h2>
+
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend1.jpg" alt="" />
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend2.jpg" alt="" />
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend3.jpg" alt="" />
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend1.jpg" alt="" />
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend2.jpg" alt="" />
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend3.jpg" alt="" />
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                          </a>
+                          <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                          </a>
+                    </div>
+                </div><!--/recommended_items-->
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        //bắt sự kiện click của button add-to-cart
+        $("#submit-review").on('click',function(){
+            //lấy thông tin id của product hiện tại muốn làm
+            var id = "{{product.id}}";
+            //Lấy review và thông tin liên quan
+            var review = $(this).parent().find("textarea#review").val();
+            var rate = $(this).parent().find("input#rate").val();
+            var name = $(this).parent().find("input#name").val();
+            var email = $(this).parent().find("input#email").val();
+            var currentdate = new Date();
+            var time = currentdate.getHours() + ':' + currentdate.getMinutes();
+            var date = currentdate.getDate() + '/' + currentdate.getMonth()+1 + '/' + currentdate.getFullYear();
+            var data = {
+                name: name,
+                email:email,
+                review:review,
+                rate:rate,
+                time: time,
+                date:date
+            };
+            $.ajax({
+                url: '/products/review/', //url chính là url của route muốn ajax
+                type: 'POST', //type là get or post
+                cache: false,
+                data:{"id":id, "data":data}, //các biến truyền qua
+                success: function (data){
+                    if(data){ //nếu thành công
+                        swal("Thành công!!!");
+                    }
+                    else{ //không thành công.
+                        alert("Không thể sửa sản phẩm!!!");
+                    }
+                }
+            });
+        })
+    });
+</script>

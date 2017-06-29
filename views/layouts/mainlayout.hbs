@@ -22,6 +22,9 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/images/ico/apple-touch-icon-57-precomposed.png">
+    <!-- SweetAlert -->
+    <script src="/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/dist/sweetalert.css">
 </head><!--/head-->
 
 <body>
@@ -134,9 +137,14 @@
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
-						</div>
+                        <form method="get" action="/search">
+                            <div class="search_box pull-right">
+                                <input type="text" name="search_by" placeholder="Search"/>
+                            </div>
+                            <div class="pull-right">
+                                <input type="submit" value="Search">
+                            </div>
+                        </form>
 					</div>
 				</div>
 			</div>
