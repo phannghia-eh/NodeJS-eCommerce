@@ -100,6 +100,7 @@ exports.delete_item_all = function (req, res) {
         req.session.cart.count = req.session.cart.count + product.quantity;
         req.session.cart.total = req.session.cart.total + (product.price * product.quantity);
     });
+    data = req.session.cart.total;
     // Remove cart if empty
     if (req.session.cart.count === 0) {
         delete req.session.cart;

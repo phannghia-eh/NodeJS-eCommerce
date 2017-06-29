@@ -27,11 +27,13 @@ exports.product_list_index = function (req, res, next) {
 exports.product_list = function (req, res, next) {
     var category = req.query.category;
     var products = [];
-    if(category!==null){
+    console.log(category);
+    if(typeof (category) !== 'undefined'){
         Product.find({'brand':category},function (err, result) {
             result.forEach(function (obj) {
                 products.push(obj);
             });
+            console.log(products);
             res.render('product/product-list',{title:'List Products',layout: 'mainlayout', products:products});
         })
     }else{
@@ -39,6 +41,7 @@ exports.product_list = function (req, res, next) {
             result.forEach(function (obj) {
                 products.push(obj);
             });
+            console.log(products);
             res.render('product/product-list',{title:'List Products',layout: 'mainlayout', products:products});
         });
     }
@@ -46,12 +49,15 @@ exports.product_list = function (req, res, next) {
 
 // Get product details
 exports.product_details = function (req, res) {
-    var product;console.log("----------------------");
-    console.log(req.params.id);
+    var product;
+    var recommend = [];
     Product.findById(req.params.id, function (err, result) {
-        console.log("----------------------");
-        console.log(result);
-        res.render('product/product-details',{title: 'Products details',layout:'mainlayout', product:result});
+        Product.find({'brand':result.brand},function (err, result) {
+            result.forEach(function (obj) {
+                recommend.push(obj);
+            });
+        });
+        res.render('product/product-details',{title: 'Products details',layout:'mainlayout', product:result, recommend:recommend});
     })
 };
 
@@ -117,10 +123,10 @@ exports.product_Delete = function (req, res) {
 exports.product_review = function (req, res) {
     try{
         Product.findById(req.body.id, function (err, product) {
-
             product.reviews.push(req.body.data);
             product.save();
-            res.send({message:"success"});
+            console.log(req.body.data);
+            res.send({data:req.body.data});
         });
     }catch (err){
         console.log(err);

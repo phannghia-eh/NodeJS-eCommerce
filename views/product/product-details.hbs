@@ -73,12 +73,11 @@
                         <div class="product-information"><!--/product-information-->
                             <img src="/images/product-details/new.jpg" class="newarrival" alt="" />
                             <h2>{{product.title}}</h2>
-                            <img src={{product.imagePath.[0]}} alt="" height="100px"/>
                             <span>
                                 <span>US ${{product.price}}</span>
-                                <label>Quantity:</label>
-                                <input type="number" value="3" />
-                                <button type="button" class="btn btn-fefault cart">
+                                <label></label>
+                                <input type="hidden" id="{{product.id}}">
+                                <button type="button" class="btn btn-fefault cart add-to-cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     Add to cart
                                 </button>
@@ -111,7 +110,7 @@
                                     <li><a href=""><i class="fa fa-clock-o"></i>{{time}}</a></li>
                                     <li><a href=""><i class="fa fa-calendar-o"></i>{{date}}</a></li>
                                 </ul>
-                                <textarea>{{review}}</textarea>
+                                <textarea disabled>{{review}}</textarea>
 
 
                             </div>
@@ -139,18 +138,22 @@
                     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="item active">
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="images/home/recommend1.jpg" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                {{#each recommend}}
+                                    <div class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="{{imagePath.[0]}}" />
+                                                    <h2>${{price}}</h2>
+                                                    <p>{{title}}</p>
+                                                    <input type="hidden" id="{{id}}">
+                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                {{/each}}
+
                                 <div class="col-sm-4">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
@@ -231,7 +234,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
-        //bắt sự kiện click của button add-to-cart
+        $(".add-to-cart").on('click',function(){
+            alert("1");
+            //lấy thông tin id của product hiện tại muốn làm
+            var id = $(this).parent().find("input").attr('id');
+            //lấy số lượng
+            //alert(qty);
+            $.ajax({
+                url: '/cart/add/'+id, //url chính là url của route muốn ajax
+                type: 'POST', //type là get or post
+                cache: false,
+                data:{"id":id}, //các biến truyền qua
+                success: function (data){
+                    if(data){ //nếu thành công
+                        swal("Add to cart success!!!");
+                    }
+                    else{ //không thành công.
+                        alert("Add to cart fail!!!");
+                    }
+                }
+            });
+        });
+        //bắt sự kiện click của button submit-review
         $("#submit-review").on('click',function(){
             //lấy thông tin id của product hiện tại muốn làm
             var id = "{{product.id}}";
@@ -256,15 +280,20 @@
                 type: 'POST', //type là get or post
                 cache: false,
                 data:{"id":id, "data":data}, //các biến truyền qua
-                success: function (data){
-                    if(data){ //nếu thành công
-                        swal("Thành công!!!");
+                success: function (rls){
+                    if(rls){ //nếu thành công
+                        $(".col-sm-12").append('<ul>' +
+                                '<li><a href=""><i class="fa fa-user"></i>'+data.name+'</a></li>'+
+                                '<li><a href=""><i class="fa fa-clock-o"></i>'+data.time+'</a></li>'+
+                                '<li><a href=""><i class="fa fa-calendar-o"></i>'+data.date+'</a></li>' +
+                                '</ul>' +
+                                '<textarea disabled>'+data.review+'</textarea>')
                     }
                     else{ //không thành công.
                         alert("Không thể sửa sản phẩm!!!");
                     }
                 }
             });
-        })
+        });
     });
 </script>
