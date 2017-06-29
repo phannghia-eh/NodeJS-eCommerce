@@ -1,0 +1,56 @@
+<body>
+    <section>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <h3 class="page-title">User Manager</h3>
+                <input type ="button" name="abc" value="Add User"></br></br>
+                <div class="list-product">
+                    <div>
+                        <table id="productTable">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                   {{#each users}}
+                                    <tr>
+                                    <td>{{id}}</td>
+                                    <td>{{name}}</td> 
+                                    <td>{{username}}</td>
+                                    <td>{{email}}</td>  
+                                    <td>{{userrole}}</td>  
+                                    <td>Edit</td>
+                                    <td>Delete</td>
+                                    </tr>  
+                                    {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+    </div>
+</div>
+    </section>
+<!-- END WRAPPER -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script>
+    {{#each users}}
+
+
+
+    {{/each}}
+</script>

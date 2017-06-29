@@ -22,5 +22,8 @@ router.get('/list-product', function(req, res, next) {
 router.get('/add-product', function(req, res, next) {
     res.render('product/product-add', { title: 'Admin Page', layout:'admin' });
 });
+router.get('/list-user', function(req, res, next) {
+   var product=adminController.list_user(req,res);
+});
 
 module.exports = router;
