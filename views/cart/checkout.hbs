@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4"> 
+        <div class="total_area">
+            <ul>
+                <h2>Let us deliver you the good stuff</h2>
+                <li>Cart Sub Total <span class="subtotal">${{items.total}}</span></li>
+                <li>Eco Tax <span>Free</span></li>
+                <li>Shipping Cost <span>Free</span></li>
+                <li>Total <span class="subtotal">${{items.total}}</span></li>
+            </ul>
+        </div>
+        
+        <div class="signup-form col-sm-offset-1">
+            <h2>And please fill in the infomation below too :)</h2>
+            <form id="formId" action="/">
+                <input type="text" name="name" placeholder="Name" value={{user.name}}>
+                <input type="address" name="address" placeholder="Address" value={{user.address}} >
+                <input type="email" name="email" placeholder="E-mail" value={{user.email}} >
+                <button type="submit" class="btn btn-default">Deliver</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function validateForm(){
+    var form=document.getElementById(formId);
+    for(i=0; i<form.childNodes.length; i++)
+        if(form.childNodes[i].tagName!='INPUT'||
+           typeof form.childNodes[i].value=="undefined")
+            continue;
+        else{
+            var x=form.childNodes[i].value;
+            if(x==null||x==""){
+                alert("First name must be filled out");
+                return false;
+            }
+        }
+}
+</script>

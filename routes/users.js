@@ -39,9 +39,11 @@ router.post('/forgetpassword', controller.doForgetPassword);
 
 router.get('/forgetpassword_confirm', controller.forgetPasswordConfirm);
 
-router.post('/forgetpassword_confirm', controller.doForgetPassword);
+router.post('/forgetpassword_confirm', controller.doForgetPasswordConfirm);
 
 router.get('/userprofile', ensureAuthenticated, controller.userProfile);
+
+router.post('/userprofile', controller.doUserProfile);
 
 router.get('/changepassword', controller.changePassword);
 

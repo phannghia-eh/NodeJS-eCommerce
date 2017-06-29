@@ -1,13 +1,23 @@
+var firstpassword=document.getElementById("password");
+var secondpassword=document.getElementById("confirmpassword");
 function isPasswordMatched()
-    {
-    var firstpassword=document.getElementById("password");
-    var secondpassword=document.getElementById("confirmpassword");
-
-    if(firstpassword.value==secondpassword.value){  
-        return true;  
+{
+    console.log(firstpassword);
+    console.log(secondpassword);
+    if(firstpassword.value==secondpassword.value){
+        secondpassword.setCustomValidity('');
     }  
     else{  
         secondpassword.setCustomValidity("Passwords Don't Match");
-        return false;
     }  
 } 
+firstpassword.onchange = isPasswordMatched;
+secondpassword.onkeyup = isPasswordMatched;
+
+function isUsernameValid()
+{
+    var username=document.getElementById("username").value;
+    if(/^[a-zA-Z0-9- ]*$/.test(username) == false) {
+        alert('Your search string contains illegal characters.');
+    }
+}

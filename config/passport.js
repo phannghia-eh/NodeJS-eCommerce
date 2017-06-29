@@ -57,6 +57,18 @@ passport.use('local-signup', new LocalStrategy({
             if (user) {
                 return done(null, false, {message: 'The username is already taken!'});
             } 
+            else if(req.body.confirmpassword != req.body.password)
+            {
+                return done(null, false, {message: 'The confirm password does not match!'});
+            }
+            else if(/^([a-zA-Z0-9]+)$/.test(req.body.username) == false && req.body.username.length < 6 )
+            {
+                return done(null, false, {message: 'The username must be larger than 5 and must not content special characters and spaces!'});
+            }
+            else if(/^([ ]+)$/.test(req.body.password) == false && req.body.password.length < 6 )
+            {
+                return done(null, false, {message: 'The password must be larger than 5 and must not content spaces!'});
+            }
             else {
                 var newUser = new User();
                 var permalink = req.body.username.toLowerCase().replace(' ', '').replace(/[^\w\s]/gi, '').trim();
@@ -97,7 +109,6 @@ passport.use('local-signup', new LocalStrategy({
                                 console.log("Message sent: " + response.message);
                                 return done(null, newUser);
                             }
-
                             smtpTransport.close();
                         });
                     }

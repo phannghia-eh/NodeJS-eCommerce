@@ -64,11 +64,13 @@ userController.verify = function (req, res) {
 userController.verifyResetPassword = function (req, res) {
         var permalink = req.params.permalink;
         var resetpassword_token = req.params.resetpassword_token;
+        console.log(permalink);
         console.log(resetpassword_token);
         User.findOne({'permalink': permalink}, function (err, user) {
             if (user.resetpassword_token == resetpassword_token) {
                 console.log('Corrent token!');  
-                res.render ('user/forgetpassword_confirm', {user : req.user, layout: 'mainlayout'});
+                res.redirect ('/users/forgetpassword_confirm');
+                return;
             } else {
 
                 console.log('The token is wrong! Reject the user. token should be: ' + user.resetpassword_token);
@@ -81,9 +83,32 @@ userController.userProfile = function(req, res)
     res.render ('user/userprofile', {user: req.user, layout: 'mainlayout'});
 }
 
+userController.doUserProfile = function(req, res)
+{
+    var user= new User;
+    user = req.user;
+    User.findOne({'username':user.username}, function (err, user) {
+        if (err) {
+            console.log(err);
+            res.redirect('404');
+        }
+        else
+        {
+            User.findOneAndUpdate({'username':user.username}, {
+                'name': req.body.name,
+                'dob': req.body.dob,
+                'address': req.body.address
+            }, function (err, resp) {
+                console.log('The user info has been changed!');
+            });
+        }
+        res.redirect('/');
+    });
+}
+
 userController.forgetPassword = function(req, res)
 {
-    res.render ('user/forgetpassword', {layout: 'mainlayout'});
+    res.render ('user/forgetpassword', {user:req.user, layout: 'mainlayout'});
 }
 
 userController.doForgetPassword = function(req, res){
@@ -92,8 +117,7 @@ userController.doForgetPassword = function(req, res){
     console.log(req.user);
     User.findOne({'username':req.body.username}, function (err, user) {
         if (err) {
-            res.render ('user/forgetpassword', {user : req.user, message: "The user doesn't exist!", layout: 'mainlayout'});
-            return;
+            return res.render ('user/forgetpassword', {user : req.user, message: "The user doesn't exist!", layout: 'mainlayout'});
         }
         else
         {
@@ -133,9 +157,20 @@ userController.doChangePassword = function(req, res){
     console.log(req.body.oldpassword);
     console.log(user);
     User.findOne({'username':user.username}, function (err, user) {
+        if(req.user == null)
+        {
+            return res.render('user/changePassword', { user : req.user, layout: 'mainlayout', message: 'Please login first!'});
+        }
+        if(req.body.newpassword != req.body.confirmnewpassword)
+        {
+            return res.render('user/changePassword', { user : req.user, layout: 'mainlayout', message: 'Passwords do not match!'});
+        }
+        if(/^([ ]+)$/.test(req.body.newpassword) == false && req.body.newpassword.length < 6 )
+        {
+            return res.render('user/changePassword', { user : req.user, layout: 'mainlayout', message: 'The password must be larger than 5 and must not content spaces!'});
+        }
         if (!user.validPassword(req.body.oldpassword)) {
-            res.render ('user/changepassword', {user : req.user, message: "Wrong password!", layout: 'mainlayout'});
-            return;
+            return res.render ('user/changepassword', {user : req.user, message: "Wrong password!", layout: 'mainlayout'});
         }
         else
         {
@@ -150,14 +185,21 @@ userController.doChangePassword = function(req, res){
 
 userController.forgetPasswordConfirm = function(req, res)
 {
-    res.render ('user/forgetPasswordConfirm', {user : req.user, layout: 'mainlayout'});
+    res.render ('user/forgetpassword_confirm', {user : req.user, layout: 'mainlayout'});
 }
 
 userController.doForgetPasswordConfirm = function(req, res){
     if(req.user == null)
     {
-        res.render('user/forgetpassword_confirm', { user : req.user, layout: 'mainlayout', message: 'Please login first!'});
-        return;
+        return res.render('user/forgetpassword_confirm', { user : req.user, layout: 'mainlayout', message: 'Please login first!'});
+    }
+    if(/^([ ]+)$/.test(req.body.newpassword) == false && req.body.newpassword.length < 6 )
+    {
+        return res.render('user/changePassword', { user : req.user, layout: 'mainlayout', message: 'The password must be larger than 5 and must not content spaces!'});
+    }
+    if(req.body.newpassword != req.body.confirmpassword)
+    {
+        return res.render('user/forgetpassword_confirm', { user : req.user, layout: 'mainlayout', message: 'Passwords do not match!'});
     }
     var user= new User;
     user = req.user;

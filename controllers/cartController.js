@@ -3,11 +3,21 @@ var _ = require('underscore');
 
 exports.index = function (req, res) {
     if(typeof(req.session.cart) !== 'undefined' && req.session.cart !== null){
-        res.render('cart/cart-details',{title:'Cart',layout: 'mainlayout', items:req.session.cart});
+        res.render('cart/cart-details',{title:'Cart',layout: 'mainlayout', items:req.session.cart, user: req.user});
     } else{
-        res.render('cart/cart-details',{title:'Cart',layout: 'mainlayout'});
+        res.render('cart/cart-details',{title:'Cart',layout: 'mainlayout', user: req.user});
     }
 
+};
+
+
+exports.checkout = function (req, res) {
+    res.render('cart/checkout', {title:'Checkout',layout: 'mainlayout', user:req.user, items:req.session.cart});
+};
+
+exports.doCheckout = function (req, res) {
+    res.redirect('/');
+    //res.render('cart/checkout', {title:'Checkout',layout: 'mainlayout', items:req.session.cart});
 };
 
 exports.add_item = function (req, res) {
@@ -81,11 +91,11 @@ exports.delete_item = function (req, res) {
     // Remove cart if empty
     if (req.session.cart.count === 0) {
         delete req.session.cart;
-        res.render('cart/cart-details', {title:'Cart',layout: 'mainlayout', cart: undefined});
+        res.render('cart/cart-details', {title:'Cart',layout: 'mainlayout', cart: undefined, user: req.user});
     }
 
     // Respond with rendered cart
-    res.render('cart/cart-details', {title:'Cart',layout: 'mainlayout', cart: req.session.cart});
+    res.render('cart/cart-details', {title:'Cart',layout: 'mainlayout', cart: req.session.cart, user: req.user});
 };
 
 exports.delete_item_all = function (req, res) {

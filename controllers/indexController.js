@@ -16,7 +16,7 @@ exports.searchBy = function (req, res) {
                 }else if(filter === "price"){
                 }
             });
-            res.render('product/product-list',{title:'List Products',layout: 'mainlayout', products:products});
+            res.render('product/product-list',{title:'List Products', user: req.user,layout: 'mainlayout', products:products});
         });
     }
 };

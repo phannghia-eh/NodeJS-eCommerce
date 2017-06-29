@@ -19,7 +19,7 @@ exports.product_list_index = function (req, res, next) {
         result.forEach(function (obj) {
             products.push(obj);
         });
-        res.render('index',{title:'Index',layout: 'mainlayout', products:products});
+        res.render('index',{title:'Index', user: req.user,layout: 'mainlayout', products:products});
     });
 };
 
@@ -39,7 +39,7 @@ exports.product_list = function (req, res, next) {
             result.forEach(function (obj) {
                 products.push(obj);
             });
-            res.render('product/product-list',{title:'List Products',layout: 'mainlayout', products:products});
+            res.render('product/product-list',{title:'List Products',layout: 'mainlayout', products:products, user: req.user});
         });
     }
 };
@@ -51,13 +51,13 @@ exports.product_details = function (req, res) {
     Product.findById(req.params.id, function (err, result) {
         console.log("----------------------");
         console.log(result);
-        res.render('product/product-details',{title: 'Products details',layout:'mainlayout', product:result});
+        res.render('product/product-details',{title: 'Products details',layout:'mainlayout', product:result, user: req.user});
     })
 };
 
 //Get 'Add new' Page
 exports.product_AddNew_Get = function (req, res) {
-    res.render('product/product-add',{tittle: 'Add new', layout: 'mainlayout', message: ''});
+    res.render('product/product-add',{tittle: 'Add new', layout: 'mainlayout', message: '', user: req.user});
 };
 
 // Post 'Add new' Page
@@ -79,7 +79,7 @@ exports.product_AddNew_Post = function (req, res) {
                 "tag": req.body.tag
             });
             newProduct.save(function (err) {
-                res.render('product/product-add', {tittle: 'Add new', layout: 'mainlayout', message: err});
+                res.render('product/product-add', {tittle: 'Add new', user: req.user, layout: 'mainlayout', message: err});
             })
         }
     });
@@ -91,7 +91,7 @@ exports.product_Edit_Get = function (req, res) {
     var product;
     Product.findById(req.param.id, function (err, found) {
         product = found;
-        res.render('product/product-edit', {tittle: 'Edit', layout: 'mainlayout', product: product, message: err});
+        res.render('product/product-edit', {tittle: 'Edit', user: req.user, layout: 'mainlayout', product: product, message: err});
     });
 }
 exports.product_Edit_Post = function (req, res) {
