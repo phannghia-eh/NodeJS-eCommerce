@@ -51,5 +51,7 @@ router.get('/verify/:permalink/:verification_token', controller.verify);
 
 router.get('/resetpassword/:permalink/:resetpassword_token', controller.verifyResetPassword);
 
+router.get('/history',controller.history);
+
 module.exports = router;
 

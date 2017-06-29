@@ -1,4 +1,5 @@
 var Product = require('../models/product');
+var Bill = require('../models/bill');
 var _ = require('underscore');
 
 exports.index = function (req, res) {
@@ -100,6 +101,7 @@ exports.delete_item_all = function (req, res) {
         req.session.cart.count = req.session.cart.count + product.quantity;
         req.session.cart.total = req.session.cart.total + (product.price * product.quantity);
     });
+    data = req.session.cart.total;
     // Remove cart if empty
     if (req.session.cart.count === 0) {
         delete req.session.cart;
@@ -139,4 +141,26 @@ exports.update_quantity = function (req, res) {
 
     // Respond with rendered cart
     res.send({data:data});
+};
+
+exports.check_out = function (req, res) {
+    if(typeof(req.session.cart) !== 'undefined' && req.session.cart !== null){
+        res.render('cart/check-out',{title:'Check out',layout: 'mainlayout', items:req.session.cart, user:req.user});
+    } else {
+        res.render('cart/check-out',{title:'Check out',layout: 'mainlayout'})
+    }
+};
+
+exports.save = function (req, res) {
+    var newBill = new Bill({
+        user_id:req.user.id,
+        user_name:req.user.username,
+        email: req.user.email,
+        items: req.session.cart.products,
+        date: req.body.date,
+        address: req.body.address,
+        total: req.session.cart.total,
+        status: '0'
+    });
+    newBill.save();
 };

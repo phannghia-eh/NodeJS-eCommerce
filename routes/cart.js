@@ -11,4 +11,8 @@ router.post('/delete/:id',cartController.delete_item_all);
 
 router.post('/update/:id/:qty', cartController.update_quantity);
 
+router.get('/checkout', cartController.check_out);
+
+router.post('/save',cartController.save);
+
 module.exports = router;
