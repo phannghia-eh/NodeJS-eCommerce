@@ -1,0 +1,30 @@
+<script src="/validations/userValidations.js"></script>
+
+<section id="form2"><!--form-->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+				<div class="signup-form"><!--sign up form-->
+				<fieldset>
+					<legend><h2>New User Signup!</h2></legend>
+					{{#if message}}
+					<div class="alert">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							{{message}}
+					</div>
+					{{/if}}
+					<form name="signupform" action="/users/signup" method="post">
+						<input type="text" name="name" placeholder="Name" />
+						<input type="text" name="username" placeholder="User Name" required/>
+						<input type="email" name="email" placeholder="Email Address" required/>
+						<input type="password" name="password" id="password" placeholder="Password" required/>
+						<input type="password" name="confirmpassword" id="confirmpassword" placeholder="Re-enter Password" required/>
+						<button type="submit" class="btn btn-default">Signup</button>
+						<input type="submit" class="btn btn-default" value="Sign Up"/>
+					</form>
+				</div><!--/sign up form-->
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</section><!--/form-->
