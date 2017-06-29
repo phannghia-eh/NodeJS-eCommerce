@@ -1,0 +1,182 @@
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                <tr class="cart_menu">
+                    <td class="image">Item</td>
+                    <td class="description">Name</td>
+                    <td class="price">Price</td>
+                    <td class="quantity">Quantity</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each items.products}}
+                    <tr class="{{id}}">
+                        <div class="bca">
+                            <td class="cart_product">
+                                <a href=""><img src={{imagePath.[0]}} alt="" height="300px"></a>
+                            </td>
+                            <td class="cart_description">
+                                <h4><a href="">{{title}}</a></h4>
+                            </td>
+                            <td class="cart_price">
+                                <p>${{price}}</p>
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <input type="hidden" id="{{id}}">
+                                    <input class="cart_quantity_input" type="number" id="quantity" value="{{quantity}}" autocomplete="off" size="2">
+                                    <input type="button" class="editQty btn btn-default update" value="Update">
+                                </div>
+                            </td>
+                            <td class="cart_delete">
+                                <a class="cart_quantity_delete" href=javascript:void(0)><i class="fa fa-times"></i></a>
+                            </td>
+                        </div>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+
+<section id="do_action">
+    <div class="container">
+        <div class="heading">
+            <h3>What would you like to do next?</h3>
+            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="chose_area">
+                    <ul class="user_option">
+                        <li>
+                            <input type="checkbox">
+                            <label>Use Coupon Code</label>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <label>Use Gift Voucher</label>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <label>Estimate Shipping & Taxes</label>
+                        </li>
+                    </ul>
+                    <ul class="user_info">
+                        <li class="single_field">
+                            <label>Country:</label>
+                            <select>
+                                <option>United States</option>
+                                <option>Bangladesh</option>
+                                <option>UK</option>
+                                <option>India</option>
+                                <option>Pakistan</option>
+                                <option>Ucrane</option>
+                                <option>Canada</option>
+                                <option>Dubai</option>
+                            </select>
+
+                        </li>
+                        <li class="single_field">
+                            <label>Region / State:</label>
+                            <select>
+                                <option>Select</option>
+                                <option>Dhaka</option>
+                                <option>London</option>
+                                <option>Dillih</option>
+                                <option>Lahore</option>
+                                <option>Alaska</option>
+                                <option>Canada</option>
+                                <option>Dubai</option>
+                            </select>
+
+                        </li>
+                        <li class="single_field zip-field">
+                            <label>Zip Code:</label>
+                            <input type="text">
+                        </li>
+                    </ul>
+                    <a class="btn btn-default update" href="">Get Quotes</a>
+                    <a class="btn btn-default check_out" href="">Continue</a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="total_area">
+                    <ul>
+                        <li>Cart Sub Total <span class="subtotal">${{items.total}}</span></li>
+                        <li>Eco Tax <span>Free</span></li>
+                        <li>Shipping Cost <span>Free</span></li>
+                        <li>Total <span class="subtotal">${{items.total}}</span></li>
+                    </ul>
+                    <a class="btn btn-default update" href="">Update</a>
+                    <a class="btn btn-default check_out" href="">Check Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--/#do_action-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        //bắt sự kiện click xóa
+        $(".cart_quantity_delete").on('click',function () {
+            //lấy thông tin id của product hiện tại muốn làm
+            var rowId = $(this).parent().parent().parent().find("input").attr('id');
+            var temp = $(this).parent().parent().attr('class');
+            $.ajax({
+                url: '/cart/delete/'+rowId, //url chính là url của route muốn ajax
+                type: 'POST', //type là get or post
+                cache: false,
+                data:{"id":rowId}, //các biến truyền qua
+                success: function (data){
+                    if(data){ //nếu thành công
+                        swal("Success!!!");
+                        $('.subtotal').html("$"+data.data);
+                        $('.'+ temp).remove();
+                    }
+                    else{ //không thành công.
+                        swal("Oops!","Can not change the value!!!", "error");
+                    }
+                }
+            });
+        });
+        //bắt sự kiện click của button edit
+        $(".editQty").on('click',function(){
+            //lấy thông tin id của product hiện tại muốn làm
+            var rowId = $(this).parent().parent().parent().find("input").attr('id');
+            //lấy số lượng
+            var qty = $(this).parent().parent().find("input#quantity").val();
+            //alert(qty);
+            $.ajax({
+                url: '/cart/update/'+rowId+'/'+qty, //url chính là url của route muốn ajax
+                type: 'POST', //type là get or post
+                cache: false,
+                data:{"id":rowId,"qty": qty}, //các biến truyền qua
+                success: function (data){
+                    if(data){ //nếu thành công
+                        $('.alert').text("Success!!!").fadeOut(2000);
+                        if(data.data==0){
+                            $('.subtotal').html("$");
+                        } else{
+                            $('.subtotal').html("$"+data.data);
+                        }
+                    }
+                    else{ //không thành công.
+                        swal("Oops!","Can not change the value!!!", "error");
+                    }
+                }
+            });
+        })
+    });
+</script>

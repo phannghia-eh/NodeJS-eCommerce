@@ -5,7 +5,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
-
+#preview img{height:100px;}
 body {
   font-family: 'Roboto', sans-serif;
   position: relative;
@@ -898,7 +898,7 @@ h2.title {
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:0.4;
+  opacity:1;
 }
 
 .single-products:hover .product-overlay {

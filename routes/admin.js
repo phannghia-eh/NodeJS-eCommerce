@@ -1,13 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var adminController = require('../controllers/adminController');
 
-router.get('/', function(req, res, next) {
-    res.render('./layouts/admin', { title: 'Admin Page' });
-});
+router.get('/', adminController.index);
 
-router.get('/list-product', function(req, res, next) {
-    res.render('list-product-admin', { title: 'Admin Page', layout: 'admin'});
-});
+router.get('/index', adminController.index);
 
+router.get('/list-product', adminController.list_product);
 
 module.exports = router;
