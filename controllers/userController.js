@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Bill = require('../models/bill');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var mailer = require('nodemailer');
@@ -219,4 +220,24 @@ userController.logout = function(req, res) {
   res.redirect('/');
 };
 
+userController.history = function (req, res) {
+    var bills = [];
+    Bill.find({'user_id': req.user.id}, function (err, result) {
+        result.forEach(function (obj) {
+            //Lấy key của từng mảng sản phẩm trong hóa đơn (productId)
+            for (var key in obj.items[0]) {
+                console.log("-------------------");
+                console.log("Key: " + key);
+                console.log("Value: " + obj[key]);
+                obj.items.forEach(function (obj1) {
+                    obj1 = obj1[key].title;
+                })
+                console.log("**********")
+                console.log(obj);
+            }
+            bills.push(obj);
+        });
+        res.render('user/history_bills',{tittle: 'Add new', layout: 'mainlayout', bills: bills});
+    });
+};
 module.exports = userController;

@@ -22,7 +22,6 @@ function ensureAuthenticated(req, res, next) {
 
 router.get('/',cartController.index);
 
-router.get('/checkout', ensureAuthenticated,cartController.checkout);
 
 //router.post('/checkout',cartController.doCheckOut);
 
@@ -32,4 +31,8 @@ router.post('/delete/:id',cartController.delete_item_all);
 
 router.post('/update/:id/:qty', cartController.update_quantity);
 
-module.exports = router;    
+router.get('/checkout', cartController.check_out);
+
+router.post('/save',cartController.save);
+
+module.exports = router;

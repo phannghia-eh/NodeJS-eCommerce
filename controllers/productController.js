@@ -27,7 +27,7 @@ exports.product_list_index = function (req, res, next) {
 exports.product_list = function (req, res, next) {
     var category = req.query.category;
     var products = [];
-    if(category!==null){
+    if(typeof (category) !== 'undefined'){
         Product.find({'brand':category},function (err, result) {
             result.forEach(function (obj) {
                 products.push(obj);
