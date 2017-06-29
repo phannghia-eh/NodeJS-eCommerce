@@ -50,7 +50,16 @@
         tr.append('<td>'+'User'+'</td>');
     else
          tr.append('<td>'+'Admin'+'</td>');
-    tr.append(' <td>Edit</td>');
+    tr.append('<td><a href="/admin/delete-user/'+'{{id}}'+'" onclick="return ConfirmDelete()">Delete'+'</td>');
     tr.append(' <td><abc>Delete</abc></td>');
     {{/each}}
+
+    function ConfirmDelete()
+    {
+      var x = confirm("Are you sure you want to delete?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
 </script>

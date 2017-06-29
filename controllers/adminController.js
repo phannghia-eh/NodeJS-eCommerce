@@ -25,3 +25,11 @@ exports.list_user= function(req,res){
         res.render('admin/list-user', {title:'User',users:users,layout:'admin'});
     }); 
 }
+exports.delete_user= function(req,res){
+    User.findByIdAndRemove(req.params.id, function(err){
+        if(err)
+        {alert("Not delete");}
+        else
+        {alert("Delete successful");}
+    });
+}

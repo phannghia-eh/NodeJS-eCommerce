@@ -25,5 +25,8 @@ router.get('/add-product', function(req, res, next) {
 router.get('/list-user', function(req, res, next) {
    var product=adminController.list_user(req,res);
 });
+router.get('/delete-user/:id', function(req, res, next) {
+   var product=adminController.delete_user(req,res);
+});
 
 module.exports = router;
