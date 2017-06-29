@@ -1,6 +1,55 @@
-<html>
 <body>
-    <h1> dday la list product admin</h1>
-
-</body>
-</html>
+    <section>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <%include layout.ejs%>
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <h3 class="page-title">Products</h3>
+                <div class="list-product">
+                    <div>
+                        <table id="productTable">
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Tag</th>
+                                <th>Avaliable</th>
+                                <th>Brand</th>
+                                <th>Reviews</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                    {{#each products}}
+                                    <tr>
+                                    <td><img src={{imagePath}} alt="" border=3 height=100 width=100></img> </td>
+                                    <td>{{title}}</td> 
+                                    <td>{{price}}</td> 
+                                    <td>{{description}}</td>    
+                                    <td>{{tag}}</td> 
+                                    <td>{{avaliable}}</td> 
+                                    <td> {{brand}} </td>
+                                    <td> {{reviews}} </td>
+                                    <td><a href="/product/edit-product/'+{{id}}+'">Edit</td>
+                                    <td><a href="/product/edit-product/'+{{id}}+'">Delete</td>
+                                    </tr>
+                                    {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+    </div>
+</div>
+    </section>
+<!-- END WRAPPER -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
