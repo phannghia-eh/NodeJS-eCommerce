@@ -24,17 +24,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                                   {{#each users}}
-                                    <tr>
-                                    <td>{{id}}</td>
-                                    <td>{{name}}</td> 
-                                    <td>{{username}}</td>
-                                    <td>{{email}}</td>  
-                                    <td>{{userrole}}</td>  
-                                    <td>Edit</td>
-                                    <td>Delete</td>
-                                    </tr>  
-                                    {{/each}}
                             </tbody>
                         </table>
                     </div>
@@ -48,9 +37,20 @@
 <!-- END WRAPPER -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script>
+    var tbody = $('#productTable tbody');
+  
+    
     {{#each users}}
-
-
-
+    var tr= $('<tr>').appendTo(tbody);
+    tr.append('<td>'+'{{id}}'+'</td>');
+    tr.append('<td>'+'{{name}}'+'</td>');
+    tr.append('<td>'+'{{username}}'+'</td>');
+    tr.append('<td>'+'{{email}}'+'</td>');
+    if('{{userrole}}'=="role_user")
+        tr.append('<td>'+'User'+'</td>');
+    else
+         tr.append('<td>'+'Admin'+'</td>');
+    tr.append(' <td>Edit</td>');
+    tr.append(' <td><abc>Delete</abc></td>');
     {{/each}}
 </script>
