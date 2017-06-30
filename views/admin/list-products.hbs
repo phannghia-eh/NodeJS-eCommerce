@@ -14,6 +14,7 @@
                         <table id="productTable">
                             <thead>
                             <tr>
+                                <th>Serial</th>
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Price</th>
@@ -27,20 +28,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                    {{#each products}}
-                                    <tr>
-                                    <td><img src={{imagePath}} alt="" border=3 height=100 width=100></img> </td>
-                                    <td>{{title}}</td> 
-                                    <td>{{price}}</td> 
-                                    <td>{{description}}</td>    
-                                    <td>{{tag}}</td> 
-                                    <td>{{avaliable}}</td> 
-                                    <td> {{brand}} </td>
-                                    <td> {{reviews}} </td>
-                                    <td><a href="/product/edit-product/'+{{id}}+'">Edit</td>
-                                    <td><a href="/product/edit-product/'+{{id}}+'">Delete</td>
-                                    </tr>
-                                    {{/each}}
+                        
                             </tbody>
                         </table>
                     </div>
@@ -53,3 +41,31 @@
     </section>
 <!-- END WRAPPER -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<script>
+    var tbody = $('#productTable tbody');
+    var i=0;
+    {{#each products}}
+    var tr= $('<tr>').appendTo(tbody);
+    i=i+1;
+    tr.append('<td>'+i +'</td>');
+    tr.append('<td><img src={{imagePath}} alt="" border=3 height=100 width=100></img> </td>');
+    tr.append('<td>{{title}}</td> ');
+    tr.append('<td>{{price}}</td> ');
+    tr.append(' <td>{{description}}</td>');
+    tr.append('<td>{{tag}}</td>');
+    tr.append('<td>{{avaliable}}</td>');
+    tr.append('<td> {{brand}} </td>');
+    tr.append('<td> {{reviews}} </td>');
+    tr.append('<td>Edit</td>');
+    tr.append('<td><a href="/admin/delete-product/{{id}}" onclick= "return ConfirmDelete()">Delete</td>');
+    {{/each}}
+     function ConfirmDelete()
+    {
+      var x = confirm("Are you sure you want to delete?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
+    </script>

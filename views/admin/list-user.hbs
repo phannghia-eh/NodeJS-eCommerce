@@ -50,8 +50,9 @@
         tr.append('<td>'+'User'+'</td>');
     else
          tr.append('<td>'+'Admin'+'</td>');
-    tr.append('<td><a href="/admin/delete-user/'+'{{id}}'+'" onclick="return ConfirmDelete()">Delete'+'</td>');
     tr.append(' <td><abc>Delete</abc></td>');
+    tr.append('<td><a href="/admin/delete-user/'+'{{id}}'+'" onclick="return ConfirmDelete()">Delete'+'</td>');
+    
     {{/each}}
 
     function ConfirmDelete()

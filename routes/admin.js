@@ -20,13 +20,21 @@ router.get('/list-product', function(req, res, next) {
    var product=adminController.list_product(req,res);
 });
 router.get('/add-product', function(req, res, next) {
-    res.render('product/product-add', { title: 'Admin Page', layout:'admin' });
+    res.render('admin/add-product', { title: 'Admin Page', layout:'admin' });
+});
+
+router.post('/add-product', function(req, res, next) {
+    var product= adminController.add_new_product(req,res);
+});
+
+router.get('/delete-product/:id', function(req, res, next) {
+   var product=adminController.delete_product(req,res);
 });
 router.get('/list-user', function(req, res, next) {
    var product=adminController.list_user(req,res);
 });
 router.get('/delete-user/:id', function(req, res, next) {
-   var product=adminController.delete_user(req,res);
+   var user=adminController.delete_user(req,res);
 });
 
 module.exports = router;
