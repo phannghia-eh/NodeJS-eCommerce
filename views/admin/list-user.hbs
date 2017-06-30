@@ -8,7 +8,10 @@
         <div class="main-content">
             <div class="container-fluid">
                 <h3 class="page-title">User Manager</h3>
-                <input type ="button" name="abc" value="Add User"></br></br>
+                <form method="get" action="/admin/add-user">
+                 <button type="submit">Add new user</button>
+                 </br></br>
+                </form>
                 <div class="list-product">
                     <div>
                         <table id="productTable">
@@ -50,7 +53,7 @@
         tr.append('<td>'+'User'+'</td>');
     else
          tr.append('<td>'+'Admin'+'</td>');
-    tr.append(' <td><abc>Delete</abc></td>');
+    tr.append(' <td><a href="/admin/edit-userrole/'+'{{id}}'+'" onclick="return EditRole()">Edit Role'+'</td>');
     tr.append('<td><a href="/admin/delete-user/'+'{{id}}'+'" onclick="return ConfirmDelete()">Delete'+'</td>');
     
     {{/each}}
@@ -63,4 +66,12 @@
       else
         return false;
     }
+    function EditRole(){
+        var x=confirm("Do you wand change role?");
+         if (x)
+          return true;
+        else
+        return false;
+    }
+
 </script>

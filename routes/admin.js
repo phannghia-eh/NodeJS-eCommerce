@@ -37,4 +37,15 @@ router.get('/delete-user/:id', function(req, res, next) {
    var user=adminController.delete_user(req,res);
 });
 
+router.get('/add-user/', function(req, res, next) {
+    res.render('admin/add-user', { title: 'Admin Page',layout:"admin" });
+});
+
+router.post('/add-user', function(req, res, next) {
+    adminController.add_new_user(req,res);
+});
+
+router.get('/edit-userrole/:id', function(req,res,next){
+    adminController.edit_userrole(req,res);
+});
 module.exports = router;

@@ -51,7 +51,7 @@ exports.delete_user= function(req,res){
         if(err)
         {alert("Not delete");}
         else
-        {alert("Delete successful");}
+        {exports.list_user(req,res);}
     });
 }
 exports.add_new_product = function(req,res){
@@ -75,5 +75,35 @@ exports.add_new_product = function(req,res){
                 res.render('admin/add-product', {tittle: 'Add new',layout: 'admin'});
             })
         }
+    });
+} 
+exports.add_new_user = function(req,res){
+     var newUser = new User({
+                "name": req.body.name,
+                "username": req.body.username,
+                "email": req.body.email,
+                "password": req.body.password,
+                "userrole": req.body.userrole,
+            });
+    newUser.save(function (err) {
+                exports.list_user(req,res);
+            })
+}
+exports.edit_userrole= function(req,res){
+    var role="123";
+    User.findById(req.params.id,function(err,a){
+        console.log(a);
+        if(a.userrole=="role_user")
+            role="role_admin";
+        else
+            role="role_user";
+        console.log(role);
+        User.findByIdAndUpdate(a.id,{$set: {"userrole": role}}, function(err,result){
+            if(err)
+                alert("Can not edit role");
+            else
+                console.log(role);
+                exports.list_user(req,res);
+        });    
     });
 }
