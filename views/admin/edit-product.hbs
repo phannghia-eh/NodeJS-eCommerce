@@ -3,31 +3,32 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-3">
                 <div class="login-form" id="uploadForm"><!--login form-->
-                    <form action="add-product" method="post" enctype="multipart/form-data">
+                    <form action="edit-product/{{product.id}}" method="post" enctype="multipart/form-data">
                     </br></br></br></br>
                     <h2>Add new product</h2>
+                    
                     <table>
                         <tr>
-                            <td><input type="text"  placeholder="Title" name="title"/></td>
+                            <td><input type="text"  placeholder="Title" name="title" value="{{product.title}}"/></td>
                         </tr>
                         <tr>
-                            <td><input type="text" placeholder="Brand" name="brand"/></td>
+                            <td><input type="text" placeholder="Brand" name="brand" value="{{product.brand}}"/></td>
                         </tr>
                         <tr>
-                            <td><input type="number" placeholder="Price" name="price"/></td>
+                            <td><input type="number" placeholder="Price" name="price" value="{{product.price}}"/></td>
                         </tr>
                         <tr>
-                            <td><textarea cols="50" rows ="20" placeholder="Description" name="description"></textarea></td>
+                            <td><textarea cols="50" rows ="20" placeholder="Description" name="description" aria-valuetext="{{product.description}}"></textarea></td>
                         </tr>
                         <tr>        
-                            <td><input type="text" placeholder="Tag" name="tag"/></td>
+                            <td><input type="text" placeholder="Tag" name="tag" value="{{product.Tag}}"/></td>
                         </tr>
                         <tr>
                             <td><input type="file" name="imageFile" multiple /></td>
                             <td><span id = "status"></span></td>
                         </tr>
                          <tr>
-                            <td><button type="submit" class="btn btn-default">Add new</button></td>
+                            <td><button type="submit" class="btn btn-default">Edit</button></td>
                         </tr>                        
                     </table>
                     </form>
@@ -36,4 +37,3 @@
         </div>
     </div>
 </section><!--/form-->
-

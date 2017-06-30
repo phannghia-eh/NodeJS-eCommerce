@@ -107,3 +107,26 @@ exports.edit_userrole= function(req,res){
         });    
     });
 }
+
+exports.edit_product = function(req,res){
+    Product.findById(req.params.id,function(err,product){
+        if(!err)
+            res.render('admin/edit-product',{tittle: "Edit Product", layout: "admin", product:product});
+
+    });
+}
+exports.edit_productPost = function(req,res){
+        Product.findByIdAndUpdate(req.params.id, {$set:{
+                "title": req.body.title,
+                "price": req.body.price,
+                "brand": req.body.brand,
+                "description": req.body.description,
+                "tag": req.body.tag 
+           }},function(err,result){
+               if(err)
+                    alert("Error");
+                else
+                 exports.list_product(req,res);   
+           });
+    
+}

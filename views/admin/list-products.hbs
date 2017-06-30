@@ -57,7 +57,7 @@
     tr.append('<td>{{avaliable}}</td>');
     tr.append('<td> {{brand}} </td>');
     tr.append('<td> {{reviews}} </td>');
-    tr.append('<td>Edit</td>');
+    tr.append('<td><a href="/admin/edit-product/{{id}}">Edit</td>');
     tr.append('<td><a href="/admin/delete-product/{{id}}" onclick= "return ConfirmDelete()">Delete</td>');
     {{/each}}
      function ConfirmDelete()

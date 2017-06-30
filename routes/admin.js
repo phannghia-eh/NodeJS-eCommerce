@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var adminController = require('../controllers/adminController');
+var adminController = require('../controllers/adminController.js');
 
 // function ensureAuthenticated(req, res, next) {
 //     User.findOne({'username': req.user.username}, function (err, user){
@@ -16,36 +16,29 @@ var adminController = require('../controllers/adminController');
 router.get('/', function(req, res, next) {
     res.render('admin', { title: 'Admin Page' });
 });
-router.get('/list-product', function(req, res, next) {
-   var product=adminController.list_product(req,res);
-});
+router.get('/list-product', adminController.list_product);
+
 router.get('/add-product', function(req, res, next) {
     res.render('admin/add-product', { title: 'Admin Page', layout:'admin' });
 });
 
-router.post('/add-product', function(req, res, next) {
-    var product= adminController.add_new_product(req,res);
-});
+router.post('/add-product', adminController.add_new_product);
 
-router.get('/delete-product/:id', function(req, res, next) {
-   var product=adminController.delete_product(req,res);
-});
-router.get('/list-user', function(req, res, next) {
-   var product=adminController.list_user(req,res);
-});
-router.get('/delete-user/:id', function(req, res, next) {
-   var user=adminController.delete_user(req,res);
-});
+router.get('/delete-product/:id', adminController.delete_product);
+
+router.get('/list-user', product=adminController.list_user);
+
+router.get('/delete-user/:id', adminController.delete_user);
 
 router.get('/add-user/', function(req, res, next) {
     res.render('admin/add-user', { title: 'Admin Page',layout:"admin" });
 });
 
-router.post('/add-user', function(req, res, next) {
-    adminController.add_new_user(req,res);
-});
+router.post('/add-user', adminController.add_new_user);
 
-router.get('/edit-userrole/:id', function(req,res,next){
-    adminController.edit_userrole(req,res);
-});
+router.get('/edit-userrole/:id',adminController.edit_userrole);
+
+router.get('/edit-product/:id',adminController.edit_product);
+
+router.post('/edit-product/edit-product/:id',adminController.edit_productPost);
 module.exports = router;
