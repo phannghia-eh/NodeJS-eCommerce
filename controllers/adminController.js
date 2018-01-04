@@ -22,10 +22,8 @@ exports.index = function (req, res) {
 exports.list_product = function (req, res) {
     var products = [];
     Product.find({}, function (err, result) {
-        result.forEach(function (obj) {
-            products.push(obj);
-        });
-        res.render('admin/list-products', {title:'List Products',products:products,layout:'admin'});
+        console.log(result)
+        res.render('admin/list-products', {title:'List Products',products:result,layout:'admin'});
     });
 };
 exports.delete_product= function(req,res){
@@ -43,6 +41,7 @@ exports.list_user= function(req,res){
         result.forEach(function (obj) {
             users.push(obj);
         });
+        console.log(users)
         res.render('admin/list-user', {title:'User',users:users,layout:'admin'});
     }); 
 }

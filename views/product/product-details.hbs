@@ -266,5 +266,25 @@
                 }
             });
         })
+        $(".add-to-cart").on('click',function(){
+            //lấy thông tin id của product hiện tại muốn làm
+            var id = $(this).parent().find("input").attr('id');
+            //lấy số lượng
+            alert(qty);
+            $.ajax({
+                url: '/cart/add/'+id, //url chính là url của route muốn ajax
+                type: 'POST', //type là get or post
+                cache: false,
+                data:{"id":id}, //các biến truyền qua
+                success: function (data){
+                    if(data){ //nếu thành công
+                        swal("Thành công!!!");
+                    }
+                    else{ //không thành công.
+                        alert("Không thể sửa sản phẩm!!!");
+                    }
+                }
+            });
+        })
     });
 </script>

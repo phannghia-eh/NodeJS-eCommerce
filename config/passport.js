@@ -29,7 +29,7 @@ passport.use('local-signin',new LocalStrategy({
       passReqToCallback: true,
       },
       function(req, username, password, done) {
-        console.log('user',username, password);
+        // console.log('user',username, password);
         User.findOne({ 'username' : username }, function (err, user) {
           if (err) { return done(err); }
           if (!user) {
@@ -38,6 +38,8 @@ passport.use('local-signin',new LocalStrategy({
           else if (!user.validPassword(password)) {
             return done(null, false, {message: 'The password is incorrect!'});
           }
+            req.user = user;
+            console.log(req.user)
           return done(null, user);
         });
       }
@@ -78,7 +80,7 @@ passport.use('local-signup', new LocalStrategy({
                 });
                 var text = 'http://localhost:3000/users/' + 'verify' + '/' + permalink + '/' + verification_token;
                 var mail = {
-                    from: "Kiên Nguyễn <from@gmail.com>",
+                    from: "ABC <from@gmail.com>",
                     to: req.body.email,
                     subject: "Kiên Nguyễn gửi bạn link verify email nè!", 
                     html: text
@@ -97,6 +99,8 @@ passport.use('local-signup', new LocalStrategy({
                 newUser.permalink = permalink;
                 newUser.verified = false;
                 newUser.verification_token = verification_token;
+
+                req.user = newUser;
                 // save the user
                 newUser.save(function(err) {
                     if (err)

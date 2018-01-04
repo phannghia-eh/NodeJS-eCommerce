@@ -2,17 +2,6 @@ var express = require('express');
 var router = express.Router();
 var adminController = require('../controllers/adminController.js');
 
-// function ensureAuthenticated(req, res, next) {
-//     User.findOne({'username': req.user.username}, function (err, user){
-//         console.log(user);
-//         if(req.isAuthenticated() && user.userrole == 'role_admin'){
-//             next();
-//         } else{
-//             res.redirect("/users/login");
-//         }
-//     })
-// }
-
 router.get('/', function(req, res, next) {
     res.render('admin', { title: 'Admin Page' });
 });

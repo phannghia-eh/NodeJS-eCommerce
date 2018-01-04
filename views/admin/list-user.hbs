@@ -41,8 +41,6 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script>
     var tbody = $('#productTable tbody');
-  
-    
     {{#each users}}
     var tr= $('<tr>').appendTo(tbody);
     tr.append('<td>'+'{{id}}'+'</td>');
@@ -55,7 +53,7 @@
          tr.append('<td>'+'Admin'+'</td>');
     tr.append(' <td><a href="/admin/edit-userrole/'+'{{id}}'+'" onclick="return EditRole()">Edit Role'+'</td>');
     tr.append('<td><a href="/admin/delete-user/'+'{{id}}'+'" onclick="return ConfirmDelete()">Delete'+'</td>');
-    
+
     {{/each}}
 
     function ConfirmDelete()

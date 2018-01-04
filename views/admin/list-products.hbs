@@ -1,71 +1,66 @@
 <body>
-    <section>
-<!-- WRAPPER -->
-<div id="wrapper">
-    <%include layout.ejs%>
-    <!-- MAIN -->
-    <div class="main">
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <div class="container-fluid">
-                <h3 class="page-title">Products</h3>
-                <div class="list-product">
-                    <div>
-                        <table id="productTable">
-                            <thead>
-                            <tr>
-                                <th>Serial</th>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Price</th>
-                                <th>Description</th>
-                                <th>Tag</th>
-                                <th>Avaliable</th>
-                                <th>Brand</th>
-                                <th>Reviews</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                        
-                            </tbody>
-                        </table>
+<section>
+    <!-- WRAPPER -->
+    <div id="wrapper">
+        <%include layout.ejs%>
+        <!-- MAIN -->
+        <div class="main">
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <div class="container-fluid">
+                    <h3 class="page-title">Products</h3>
+                    <div class="list-product">
+                        <div>
+                            <table id="productTable">
+                                <thead>
+                                <tr>
+                                    <th>Serial</th>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th>Tag</th>
+                                    <th>Avaliable</th>
+                                    <th>Brand</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+                <!-- END MAIN CONTENT -->
             </div>
-            <!-- END MAIN CONTENT -->
         </div>
     </div>
-</div>
-    </section>
+</section>
 <!-- END WRAPPER -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 
 <script>
-    var tbody = $('#productTable tbody');
     var i=0;
-    {{#each products}}
-    var tr= $('<tr>').appendTo(tbody);
-    i=i+1;
-    tr.append('<td>'+i +'</td>');
-    tr.append('<td><img src={{imagePath}} alt="" border=3 height=100 width=100></img> </td>');
-    tr.append('<td>{{title}}</td> ');
-    tr.append('<td>{{price}}</td> ');
-    tr.append(' <td>{{description}}</td>');
-    tr.append('<td>{{tag}}</td>');
-    tr.append('<td>{{avaliable}}</td>');
-    tr.append('<td> {{brand}} </td>');
-    tr.append('<td> {{reviews}} </td>');
-    tr.append('<td><a href="/admin/edit-product/{{id}}">Edit</td>');
-    tr.append('<td><a href="/admin/delete-product/{{id}}" onclick= "return ConfirmDelete()">Delete</td>');
-    {{/each}}
-     function ConfirmDelete()
+    var tbody = $('#productTable tbody');
+        {{#each products}}
+            i=i+1;
+        var tr= $('<tr>').appendTo(tbody);
+        tr.append('<td>'+i+'</td>');
+        tr.append('<td>'+'{{title}}'+'</td>');
+        tr.append('<td>'+'{{price}}'+'</td>');
+        tr.append('<td>'+'{{tag}}'+'</td>');
+        tr.append('<td>'+'True'+'</td>');
+        tr.append('<td>'+'{{brand}}'+'</td>');
+        tr.append('<td><a href="/admin/edit-product/'+'{{id}}'+'" onclick="return EditRole()">Edit'+'</td>');
+        tr.append('<td><a href="/admin/delete-product/'+'{{id}}'+'" onclick="return ConfirmDelete()">Delete'+'</td>');
+
+        {{/each}}
+    function ConfirmDelete()
     {
-      var x = confirm("Are you sure you want to delete?");
-      if (x)
-          return true;
-      else
-        return false;
+        var x = confirm("Are you sure you want to delete?");
+        if (x)
+            return true;
+        else
+            return false;
     }
-    </script>
+
+</script>

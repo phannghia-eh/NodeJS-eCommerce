@@ -19,6 +19,8 @@ var flash = require('connect-flash');
 var admin = require('./routes/admin');
 var productadmin = require('./routes/product-admin');
 
+var mwCheckAdmin = require('./middleware/checkAdmin');
+
 var app = express();
 var User = require('./models/user');
 var moment = require('moment');
@@ -66,7 +68,7 @@ app.use('/', index);
 app.use('/products', products);
 app.use('/users', users);
 app.use('/contact', contact);
-app.use('/admin', admin);
+app.use('/admin', mwCheckAdmin.isAdmin, admin);
 app.use('/productadmin', productadmin);
 app.use('/cart', cart);
 

@@ -1,0 +1,43 @@
+<div id="contact-page" class="container">
+    <div class="bg">
+        <div class="row">
+            <div>
+                    <h2 class="title text-center">Advanced search</h2>
+                    <div class="status alert alert-success" style="display: none"></div>
+                    <form id="main-contact-form" class="contact-form row" name="contact-form" method="get" action="/search">
+                        <div class="form-group col-md-12">
+                            <input type="text" name="searchBy" class="form-control" required="required" placeholder="Search...">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <select name="type">
+                                <option value="1">Higher than or equal</option>
+                                <option value="-1">Less than or equal</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="number" name="price" class="form-control" placeholder="Price">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="text" name="brand" class="form-control" placeholder="Brand">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="number" name="rate" class="form-control" placeholder="Rate" max="10">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="submit" id="submit" class="btn btn-primary pull-right" value="Search">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--/#contact-page-->
+
+<!--<script>-->
+    <!--$(document).ready(function(){-->
+        <!--//bắt sự kiện click của button add-to-cart-->
+        <!--$("#submit").on('click',function(){-->
+            <!--window.location = 'search'-->
+        <!--})-->
+    <!--});-->
+<!--</script>-->
